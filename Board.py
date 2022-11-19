@@ -14,13 +14,17 @@ LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 FONT_COLOUR = (255,255,255)
 
 def Setup():
-    window = pygame.display.set_mode((SIZE,SIZE))
-    pygame.display.set_caption("Chess")
-    window.fill((20,20,20))
-    DrawBoard(window)
-    DrawNum(window)
-    pygame.display.update()
-    time.sleep(4)
+    try:
+        window = pygame.display.set_mode((SIZE,SIZE))
+        pygame.display.set_caption("Chess")
+        window.fill((20,20,20))
+        DrawBoard(window)
+        DrawNum(window)
+        pygame.display.update()
+        return window
+        
+    except Exception as e:
+        print("Error in Setup method of Board.py: " + str(e))
 
 
 #Draws the checkered board
@@ -68,50 +72,3 @@ def DrawNum(surface):
         surface.blit(text, (30,start))
         start-=50
         number+=1
-
-def DrawPieces(surface):
-        #Black Pieces
-        b_rook = pygame.transform.scale(pygame.image.load('br.png'), (50, 50))
-        b_knight = pygame.transform.scale(pygame.image.load('bk.png'), (50,50))
-        b_bishop = pygame.transform.scale(pygame.image.load('bb.png'), (50, 50))
-        b_queen = pygame.transform.scale(pygame.image.load('bq.png'), (50, 50))
-        b_king = pygame.transform.scale(pygame.image.load('bking.png'), (50, 50)) 
-        b_pawn = pygame.transform.scale(pygame.image.load('bp.png'), (50, 50))
-
-        surface.blit(b_rook, (50,50))
-        surface.blit(b_rook, (400,50))
-        surface.blit(b_knight, (100,50))
-        surface.blit(b_knight, (350,50))
-        surface.blit(b_bishop, (150,50))
-        surface.blit(b_bishop, (300,50)) 
-        surface.blit(b_queen, (200,50))
-        surface.blit(b_king, (250,50))
-
-        pos = 50
-        for i in range(8):
-            surface.blit(b_pawn, (pos,100))
-            pos += 50
-
-        #White Pieces
-        w_rook = pygame.transform.scale(pygame.image.load('wr.png'), (50, 50))
-        w_knight = pygame.transform.scale(pygame.image.load('wk.png'), (50,50))
-        w_bishop = pygame.transform.scale(pygame.image.load('wb.png'), (50, 50))
-        w_queen = pygame.transform.scale(pygame.image.load('wq.png'), (50, 50))
-        w_king = pygame.transform.scale(pygame.image.load('wking.png'), (50, 50))
-        w_pawn = pygame.transform.scale(pygame.image.load('wp.png'), (50, 50))
-
-        surface.blit(w_rook, (50,400))
-        surface.blit(w_rook, (400,400))
-        surface.blit(w_knight, (100,400))
-        surface.blit(w_knight, (350,400))
-        surface.blit(w_bishop, (150,400))
-        surface.blit(w_bishop, (300,400)) 
-        surface.blit(w_queen, (200,400))
-        surface.blit(w_king, (250,400)) 
-
-        pos = 50
-        for i in range(8):
-            surface.blit(w_pawn, (pos,350))
-            pos += 50
-
-Setup()
