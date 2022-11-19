@@ -3,10 +3,14 @@ import pathlib
 
 class ChessPiece:
     SIZE = 50
+    WHITE_IMG = 'sprites/wp.png'
+    BLACK_IMG = 'sprites/bp.png'
+
     def __init__(self, pos: list[int], colour: str, surface):
         self.pos = pos
         self.colour = colour    # this is the pieces color
         self.surface = surface  # game window to draw onto
+        self.first_move = True
         self.draw()
 
     #Moves the piece
@@ -22,7 +26,14 @@ class ChessPiece:
     
     # Draws the piece at it's position
     def draw(self):
-        pass
+        if self.colour == 'w':
+            pawn = pygame.transform.scale(pygame.image.load(self.WHITE_IMG), (self.SIZE, self.SIZE)) 
+        else:
+            pawn = pygame.transform.scale(pygame.image.load(self.BLACK_IMG), (self.SIZE, self.SIZE)) 
+
+        if self.pos != [0,0]:
+            cords = self.pos_to_cords(self.pos, 0) 
+            self.surface.blit(pawn, (cords[0], cords[1]))
 
     #Returns position
     def get_pos(self):
@@ -47,17 +58,7 @@ class Pawn(ChessPiece):
     def move(self, final_pos, white_pieces, black_pieces):
         #This checks if the move is possible
         pos = [0,0]
-
-    def draw(self):
-
-        if self.colour == 'w':
-            pawn = pygame.transform.scale(pygame.image.load(self.WHITE_IMG), (self.SIZE, self.SIZE)) 
-        else:
-            pawn = pygame.transform.scale(pygame.image.load(self.BLACK_IMG), (self.SIZE, self.SIZE)) 
-
-        if self.pos != [0,0]:
-            cords = self.pos_to_cords(self.pos, 0) 
-            self.surface.blit(pawn, (cords[0], cords[1]))
+        self.first_move = False
         
     
     def avaliable_moves(self):
@@ -84,3 +85,58 @@ class Pawn(ChessPiece):
 
     def en_passant():
         pass
+
+
+class Knight(ChessPiece):
+    WHITE_IMG = 'sprites/wk.png'
+    BLACK_IMG = 'sprites/bk.png'
+
+    def move(self, final_pos: list[int], white_pieces, blacl_pieces):
+        pass
+
+    def avaliable_moves(self):
+        return super().avaliable_moves()
+
+
+class Rook(ChessPiece):
+    WHITE_IMG = 'sprites/wr.png'
+    BLACK_IMG = 'sprites/br.png'
+
+    def move(self, final_pos: list[int], white_pieces, blacl_pieces):
+        pass
+
+    def avaliable_moves(self):
+        return super().avaliable_moves()
+
+
+class Bishop(ChessPiece):
+    WHITE_IMG = 'sprites/wb.png'
+    BLACK_IMG = 'sprites/bb.png'
+
+    def move(self, final_pos: list[int], white_pieces, blacl_pieces):
+        pass
+
+    def avaliable_moves(self):
+        return super().avaliable_moves()
+
+
+class Queen(ChessPiece):
+    WHITE_IMG = 'sprites/wq.png'
+    BLACK_IMG = 'sprites/bq.png'
+
+    def move(self, final_pos: list[int], white_pieces, blacl_pieces):
+        pass
+
+    def avaliable_moves(self):
+        return super().avaliable_moves()
+
+
+class King(ChessPiece):
+    WHITE_IMG = 'sprites/wking.png'
+    BLACK_IMG = 'sprites/bking.png'
+
+    def move(self, final_pos: list[int], white_pieces, blacl_pieces):
+        pass
+
+    def avaliable_moves(self):
+        return super().avaliable_moves()
