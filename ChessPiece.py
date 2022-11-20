@@ -6,12 +6,11 @@ class ChessPiece:
     WHITE_IMG = 'sprites/wp.png'
     BLACK_IMG = 'sprites/bp.png'
 
-    def __init__(self, pos: list[int], colour: str, surface):
+    def __init__(self, pos: list[int], colour: str, surface, first_move=True):
         self.pos = pos
         self.colour = colour    # this is the pieces color
         self.surface = surface  # game window to draw onto
-        self.first_move = True
-        self.draw()
+        self.first_move = first_move
 
     #Moves the piece
     def move(self, final_pos):
@@ -21,34 +20,12 @@ class ChessPiece:
     def avaliable_moves(self):
         pass
 
-    def possible_move(self):
+    def possible_moves(self):
         pass
-    
-    # Draws the piece at it's position
-    def draw(self):
-        if self.colour == 'w':
-            pawn = pygame.transform.scale(pygame.image.load(self.WHITE_IMG), (self.SIZE, self.SIZE)) 
-        else:
-            pawn = pygame.transform.scale(pygame.image.load(self.BLACK_IMG), (self.SIZE, self.SIZE)) 
-
-        if self.pos != [0,0]:
-            cords = self.pos_to_cords(self.pos, 0) 
-            self.surface.blit(pawn, (cords[0], cords[1]))
 
     #Returns position
     def get_pos(self):
         return self.pos
-
-    #converts position to coordinates on the window 
-    def pos_to_cords(self, pos, var:int):
-        if var == 0:
-            pos[0] = pos[0]*50
-            pos[1] = 450-(pos[1]*50)
-        else:
-            pos[0] = pos[0]//50
-            pos[1] = (450-pos[1])//50
-
-        return(pos)
 
 
 class Pawn(ChessPiece):
@@ -57,15 +34,12 @@ class Pawn(ChessPiece):
     
     def move(self, final_pos, white_pieces, black_pieces):
         #This checks if the move is possible
-        pos = [0,0]
         self.first_move = False
         
     
     def avaliable_moves(self):
-        if (self.colour=='w'):
-            pass
+        moves = self.possible_moves
 
-    
     def possible_moves(self):
         moves = []
 
@@ -83,7 +57,10 @@ class Pawn(ChessPiece):
 
         return moves
 
-    def en_passant():
+    def standard_move(self):
+        pass
+
+    def en_passant(self, black_pieces):
         pass
 
 
@@ -140,3 +117,7 @@ class King(ChessPiece):
 
     def avaliable_moves(self):
         return super().avaliable_moves()
+
+
+def get_all_pieces():
+    return ChessPiece.all

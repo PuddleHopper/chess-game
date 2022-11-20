@@ -2,27 +2,27 @@ import pygame
 import os
 import time
 
-#pygame.init()
-pygame.font.init()
 
+## Global Vars
 SIZE = 500
 SQUARE_SIZE = SIZE/10
 WHITE = (139,69,19)
 BLACK = (205,133,63)
+pygame.font.init()
 MAIN_FONT = pygame.font.SysFont('Segoe UI',20, bold=True)
 LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 FONT_COLOUR = (255,255,255)
 
 def Setup():
     try:
-        window = pygame.display.set_mode((SIZE,SIZE))
-        pygame.display.set_caption("Chess")
+        window = pygame.display.set_mode((SIZE,SIZE))   #Creates window
+        pygame.display.set_caption("Chess")  
         window.fill((20,20,20))
         DrawBoard(window)
         DrawNum(window)
         pygame.display.update()
         return window
-        
+
     except Exception as e:
         print("Error in Setup method of Board.py: " + str(e))
 
