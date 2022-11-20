@@ -20,7 +20,6 @@ def Setup():
         window.fill((20,20,20))
         DrawBoard(window)
         DrawNum(window)
-        pygame.display.update()
         return window
 
     except Exception as e:

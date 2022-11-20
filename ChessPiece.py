@@ -20,12 +20,15 @@ class ChessPiece:
     def avaliable_moves(self):
         pass
 
-    def possible_moves(self):
+    def possible_attacks(self):
         pass
 
     #Returns position
     def get_pos(self):
         return self.pos
+
+    def set_pos(self, pos:tuple[int]):
+        self.pos = pos
 
 
 class Pawn(ChessPiece):
@@ -56,6 +59,18 @@ class Pawn(ChessPiece):
             print("Invalid colour assigned to Pawn")
 
         return moves
+        
+    #Returns list of positions of attack
+    def possible_attacks(self):
+        attacks = []
+        if (self.colour == 'w'):
+            attacks.append([self.pos[0]+1, self.pos[1]+1])
+            attacks.append([self.pos[0]-1, self.pos[1]+1])
+        else:
+            attacks.append([self.pos[0]+1, self.pos[1]-1])
+            attacks.append([self.pos[0]-1, self.pos[1]-1])
+
+        return attacks
 
     def standard_move(self):
         pass

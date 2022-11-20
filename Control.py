@@ -1,6 +1,7 @@
 import pygame
 import Board
 import ChessPiece
+import time
 
 class Game:
 
@@ -93,11 +94,56 @@ class Game:
             return False
 
     def user_input(self, pos1:tuple[int], pos2:tuple[int], turn:str):
-        print("I ran")
-        return True
+        if (self.valid_pos(pos1) and self.valid_pos(pos2)):
+            
+            if (turn == 'w'):
+                pieces = self.white_pieces
+                other_pieces = self.black_pieces
+            else:
+                pieces = self.black_pieces
+                other_pieces = self.white_pieces
+            
+            #Checks if a piece of that colour exists on position 1 pos1
+            if (self.pos_used(pos1, pieces)):
+                selected_piece = self.get_pieces(pos1, pieces)
+
+                #Now piece performs own checks to see if move is valid
+                if (selected_piece.move(pos2, pieces, other_pieces)):
+                    
+                    return True
+
+        return False
 
     def get_white_pieces(self):
         return self.white_pieces
 
     def get_black_pieces(self):
         return self.black_pieces
+
+    #Returns true if the given pos has a chess piece on it
+    def pos_used(self, pos:tuple[int], pieces:list[ChessPiece.ChessPiece]):
+        pos_list = []
+        for piece in pieces:
+            if (piece.get_pos() == pos):
+                return True
+        return False
+    
+    def get_piece(self, pos:tuple[int], pieces:list[ChessPiece.ChessPiece]):
+        for piece in pieces:
+            if (piece.get_pos() == pos):
+                return pos
+        return False
+    
+    def king_in_check(self, pieces:list[ChessPiece.ChessPiece], other_pieces:list[ChessPiece.ChessPiece]):
+        king_pos = [0,0]
+        for piece in pieces:
+            if (piece.__class__.__name__ == "King"):
+                king_pos = piece.get_pos()
+                break
+        
+
+    def get_possible_moves(self, pieces:list[ChessPiece.ChessPiece]):
+        possible_moves = []
+        for piece in pieces:
+            possible_moves.append(piece.possible_attcks())
+        

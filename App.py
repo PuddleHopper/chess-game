@@ -16,7 +16,6 @@ def main():
     mouse_pos2 = [0,0] #Second selection
     turn = 'w'  #Indicates which players turn it is
 
-
     while (True):
         try:
             for event in pygame.event.get():
@@ -26,7 +25,7 @@ def main():
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
                     mouse_pos = Game.pos_to_cords(mouse_pos,1)
-                    print(f"{mouse_pos[0], mouse_pos[1]}")
+                    #print(f"{mouse_pos[0], mouse_pos[1]}")
 
                     if Game.valid_pos(mouse_pos):
                         if (mouse_pos1 == [0,0]):
@@ -35,6 +34,8 @@ def main():
                             mouse_pos2 = mouse_pos
                             if Game.user_input(mouse_pos1, mouse_pos2, turn):
                                 turn = change_turn(turn)
+                                
+                                
                             mouse_pos1 = [0,0]
                     
             pygame.display.update()
